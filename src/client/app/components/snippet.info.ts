@@ -113,80 +113,58 @@ export class SnippetInfo {
         return this.snippet.host.toLowerCase() === 'outlook';
     }
 
-    get MailRead() {
-        if (this.snippet.endpoints === undefined) {
-            return false;
-        }
-        return this.snippet.endpoints.indexOf(outlookEndpoints.MailRead) !== -1;
-    }
-
-    @Input()
-    set MailRead(checked: boolean) {
-        this.snippet.endpoints = this.snippet.endpoints ? this.snippet.endpoints : [];
-        if (checked) {
-            if (this.snippet.endpoints.indexOf(outlookEndpoints.MailRead) === -1) {
-                this.snippet.endpoints.push(outlookEndpoints.MailRead);
-            }
-        } else {
-            this.snippet.endpoints = this.snippet.endpoints.filter(endpoint => endpoint !== outlookEndpoints.MailRead);
-        }
-    }
-
     get MailCompose() {
-        if (this.snippet.endpoints === undefined) {
-            return false;
-        }
-        return this.snippet.endpoints.indexOf(outlookEndpoints.MailCompose) !== -1;
+        return this.getEndpoint(outlookEndpoints.MailCompose);
     }
 
     @Input()
     set MailCompose(checked: boolean) {
-        this.snippet.endpoints = this.snippet.endpoints ? this.snippet.endpoints : [];
-        if (checked) {
-            if (this.snippet.endpoints.indexOf(outlookEndpoints.MailCompose) === -1) {
-                this.snippet.endpoints.push(outlookEndpoints.MailCompose);
-            }
-        } else {
-            this.snippet.endpoints = this.snippet.endpoints.filter(endpoint => endpoint !== outlookEndpoints.MailCompose);
-        }
+        this.setEndpoint(outlookEndpoints.MailCompose, checked);
+    }
+
+    get MailRead() {
+        return this.getEndpoint(outlookEndpoints.MailRead);
+    }
+
+    @Input()
+    set MailRead(checked: boolean) {
+        this.setEndpoint(outlookEndpoints.MailRead, checked);
     }
 
     get AppointmentOrganizer() {
-        if (this.snippet.endpoints === undefined) {
-            return false;
-        }
-        return this.snippet.endpoints.indexOf(outlookEndpoints.AppointmentOrganizer) !== -1;
+        return this.getEndpoint(outlookEndpoints.AppointmentOrganizer);
     }
 
     @Input()
     set AppointmentOrganizer(checked: boolean) {
-        this.snippet.endpoints = this.snippet.endpoints ? this.snippet.endpoints : [];
-        if (checked) {
-            if (this.snippet.endpoints.indexOf(outlookEndpoints.AppointmentOrganizer) === -1) {
-                this.snippet.endpoints.push(outlookEndpoints.AppointmentOrganizer);
-            }
-        } else {
-            this.snippet.endpoints = this.snippet.endpoints.filter(endpoint => endpoint !== outlookEndpoints.AppointmentOrganizer);
-        }
+        this.setEndpoint(outlookEndpoints.AppointmentOrganizer, checked);
     }
 
     get AppointmentAttendee() {
-        if (this.snippet.endpoints === undefined) {
-            return false;
-        }
-        return this.snippet.endpoints.indexOf(outlookEndpoints.AppointmentAttendee) !== -1;
+        return this.getEndpoint(outlookEndpoints.AppointmentAttendee);
     }
 
     @Input()
     set AppointmentAttendee(checked: boolean) {
+        this.setEndpoint(outlookEndpoints.AppointmentAttendee, checked);
+    }
+
+    setEndpoint(endpoint: string, checked: boolean) {
         this.snippet.endpoints = this.snippet.endpoints ? this.snippet.endpoints : [];
         if (checked) {
-            if (this.snippet.endpoints.indexOf(outlookEndpoints.AppointmentAttendee) === -1) {
-                this.snippet.endpoints.push(outlookEndpoints.AppointmentAttendee);
+            if (this.snippet.endpoints.indexOf(endpoint) === -1) {
+                this.snippet.endpoints.push(endpoint);
             }
         } else {
-            this.snippet.endpoints = this.snippet.endpoints.filter(endpoint => endpoint !== outlookEndpoints.AppointmentAttendee);
+            this.snippet.endpoints = this.snippet.endpoints.filter(e => e != endpoint);
         }
+    }
+
+    getEndpoint(endpoint: string): boolean {
+        if (this.snippet.endpoints === undefined) {
+            return false;
+        }
+        return this.snippet.endpoints.indexOf(endpoint) !== -1;
     }
 
     @Input()

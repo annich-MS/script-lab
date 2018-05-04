@@ -31,6 +31,7 @@ const snippetFields: { [key: string]: SnippetFieldType } = {
     origin: SnippetFieldType.TRANSIENT,
     created_at: SnippetFieldType.INTERNAL,
     modified_at: SnippetFieldType.INTERNAL,
+    endpoints: SnippetFieldType.PUBLIC,
 
     /* ISnippet */
     script: SnippetFieldType.PUBLIC,
@@ -51,6 +52,7 @@ export const snippetFieldSortingOrder: { [key: string]: number } = {
     author: 13,
     host: 14,
     api_set: 15,
+    endpoints: 16,
 
     /* ISnippet */
     script: 110,
